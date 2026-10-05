@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@source "../../components";
+@source "../../pages";
+
+@theme {
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-surface: #0f1419;
+  --color-panel: #121820;
+  --color-raised: #161c24;
+  --color-edge: #263040;
+  --color-edge-soft: #1c2531;
+  --color-ink: #e6edf3;
+  --color-ink-soft: #c3cdd8;
+  --color-muted: #9aa7b5;
+  --color-accent: #5eead4;
+  --color-accent-bg: #0e2f2b;
+
+  --color-level-debug: #b4bcc8;
+  --color-level-debug-bg: #232a34;
+  --color-level-info: #8ec5ff;
+  --color-level-info-bg: #14263d;
+  --color-level-warning: #f5c05c;
+  --color-level-warning-bg: #38300f;
+  --color-level-error: #ff9b8e;
+  --color-level-error-bg: #3a1d1d;
+  --color-level-critical: #ff7b7b;
+  --color-level-critical-bg: #4a1414;
+}
+
+html {
+  background: var(--color-surface);
+  color-scheme: dark;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

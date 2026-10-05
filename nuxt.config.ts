@@ -1,11 +1,30 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite';
+import typia from '@typia/unplugin/vite';
+
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  modules: ['@nuxt/eslint', '@pinia/nuxt'],
   devtools: { enabled: true },
-  typescript: {
-    typeCheck: true
-  },
+  css: ['~/assets/css/main.css'],
   routeRules: {
-    '/': { redirect: '/logs' }
-  }
-})
+    '/': { redirect: '/logs-dashboard' },
+  },
+  compatibilityDate: '2025-07-15',
+  vite: {
+    plugins: [typia(), tailwindcss()],
+  },
+  typescript: {
+    typeCheck: true,
+  },
+  eslint: {
+    config: {
+      stylistic: {
+        indent: 2,
+        quotes: 'single',
+        semi: true,
+        commaDangle: 'always-multiline',
+        braceStyle: '1tbs',
+        arrowParens: true,
+      },
+    },
+  },
+});
