@@ -12,6 +12,8 @@ export function useLogFeed() {
     const entry = parseLogEntry(raw);
     if (entry) {
       store.ingest(entry);
+    } else {
+      console.error(`log could not be parsed: ${JSON.stringify(raw)}`);
     }
   });
 
