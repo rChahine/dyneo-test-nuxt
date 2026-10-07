@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@pinia/nuxt'],
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    public: {
+      LOGS_HOST: '',
+    },
+  },
   routeRules: {
     '/': { redirect: '/logs-dashboard' },
   },

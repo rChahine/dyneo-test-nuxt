@@ -1,4 +1,5 @@
 import { createPinia, setActivePinia } from 'pinia';
+import { mockNuxtImport } from '@nuxt/test-utils/runtime';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { effectScope, nextTick } from 'vue';
 import { useLogFeed } from '~/composables/useLogFeed';
@@ -6,6 +7,9 @@ import { TOAST_AUTO_CLEAR_DELAY } from '~/composables/useToast';
 import { RECONNECT_DELAY_MS } from '~/constants/stream';
 import { makeEntry } from '../factories';
 import { FakeEventSource, stubEventSource } from '../helpers/fakeEventSource';
+
+const LOGS_HOST = 'https://logs.test';
+mockNuxtImport('useRuntimeConfig', () => () => ({ public: { LOGS_HOST } }));
 
 function mountFeed() {
   const scope = effectScope();

@@ -1,8 +1,13 @@
+import { mockNuxtImport } from '@nuxt/test-utils/runtime';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { effectScope } from 'vue';
 import { useLogStream } from '~/composables/useLogStream';
-import { RECONNECT_DELAY_MS, STREAM_URL, TAIL_SIZE } from '~/constants/stream';
+import { RECONNECT_DELAY_MS, TAIL_SIZE } from '~/constants/stream';
 import { FakeEventSource, stubEventSource } from '../helpers/fakeEventSource';
+
+const LOGS_HOST = 'https://logs.test';
+
+mockNuxtImport('useRuntimeConfig', () => () => ({ public: { LOGS_HOST } }));
 
 function mountStream(onPayload: (raw: string) => void = () => {}) {
   const scope = effectScope();
@@ -27,7 +32,7 @@ describe('useLogStream', () => {
     stream.connect();
     const source = FakeEventSource.current();
 
-    expect(source.url).toBe(`${STREAM_URL}?tail=${TAIL_SIZE}`);
+    expect(source.url).toBe(`${LOGS_HOST}/logs/stream?tail=${TAIL_SIZE}`);
     expect(stream.status.value).toBe('connecting');
 
     source.onopen!();

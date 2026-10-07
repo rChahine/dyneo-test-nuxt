@@ -1,11 +1,12 @@
 import { onScopeDispose, ref } from 'vue';
-import { RECONNECT_DELAY_MS, STREAM_URL, TAIL_SIZE } from '~/constants/stream';
+import { RECONNECT_DELAY_MS, TAIL_SIZE } from '~/constants/stream';
 
 export type ConnectionStatus = 'idle' | 'connecting' | 'open' | 'error';
 
 export function useLogStream(callback: (raw: string) => void) {
   const status = ref<ConnectionStatus>('idle');
   const lost = ref(false);
+  const config = useRuntimeConfig();
 
   let source: EventSource | null = null;
   let retryTimer: ReturnType<typeof setTimeout> | null = null;
@@ -15,7 +16,7 @@ export function useLogStream(callback: (raw: string) => void) {
       return;
     }
     status.value = 'connecting';
-    source = new EventSource(`${STREAM_URL}?tail=${TAIL_SIZE}`);
+    source = new EventSource(`${config.public.LOGS_HOST}/logs/stream?tail=${TAIL_SIZE}`);
     source.onopen = () => {
       status.value = 'open';
       lost.value = false;
